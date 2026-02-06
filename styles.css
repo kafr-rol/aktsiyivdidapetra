@@ -1,77 +1,38 @@
+/* Якщо хочеш без Tailwind — ось базові стилі */
 body {
     font-family: Arial, sans-serif;
-    background: #f4f7ff;
-    margin: 0;
-    padding: 40px;
-    text-align: center;
+    background: linear-gradient(to bottom right, #4b0082, #00008b);
+    color: white;
+    min-height: 100vh;
+    padding: 2rem;
 }
 
-h1 { color: #2c3e50; }
-h2 { color: #1565c0; }
+h1, h2 { text-align: center; }
 
-.form-section {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    max-width: 500px;
-    margin: 0 auto 40px;
+.create-auction, .generate-section {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-input, button {
-    display: block;
+input, textarea, button, select {
     width: 100%;
-    margin: 10px 0;
-    padding: 12px;
-    font-size: 16px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1rem;
 }
 
 button {
-    background: #4CAF50;
+    background: #22c55e;
     color: white;
-    border: none;
     cursor: pointer;
 }
 
-button:hover {
-    background: #388e3c;
-}
-
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-}
-
-.card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    padding: 20px;
-    width: 340px;
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-.card h3 { margin: 10px 0; }
-.card p { margin: 8px 0; color: #555; }
-
-.bid-input {
-    width: 80%;
-    display: inline-block;
-}
-
-.bid-button {
-    width: 18%;
-    display: inline-block;
-    margin-left: 2%;
-}
+button:hover { background: #16a34a; }
