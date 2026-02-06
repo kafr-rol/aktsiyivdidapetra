@@ -5,7 +5,7 @@ let soldPercent = {
 };
 
 // Твоє реальне посилання на Mono (вже вставлене)
-const MONO_JAR_BASE = 'https://send.monobank.ua/jar/4UpcMV4ZSR';
+const MONO_JAR_BASE = 'https://send.monobank.ua/jar/4rBKwfHWvA';
 
 // Функція покупки
 function buyShare(itemId, percent, price, description) {
@@ -26,4 +26,5 @@ function buyShare(itemId, percent, price, description) {
         document.getElementById(`sold${itemId}`).textContent = soldPercent[itemId];
         alert(`Дякуємо за покупку! Тепер продано ${soldPercent[itemId]}%`);
     }, 5000);
+
 }
