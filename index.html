@@ -3,33 +3,26 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Магазин часток бізнесу</title>
+    <title>Аукціони – Купуй/Продавай</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Купуй/Продавай</h1>
-    <h2>Оплата через Mono</h2>
+    <h1>Аукціони</h1>
+    <p>Виставляй речі на продаж або роби ставки. Комісія сайту — 1% від фінальної ціни</p>
 
-    <div class="container">
-        <!-- Картка 1 -->
-        <div class="card">
-            <h2>Кав'ярня "Затишок"</h2>
-            <img src="Sasha_tocen.jpg.jpg" alt="Sasha_tocen.jpg.jpg">
-            <p>Продано: <span id="sold1">42</span>% з 100%</p>
-            <p>Ціна за 1%: 2500 грн</p>
-            <button onclick="buyShare('1', 5, 125, 'Купівля 5%')">Купити 5% (125 грн)</button>
-            <button onclick="buyShare('1', 10, 250, 'Купівля 10%')">Купити 10% (250 грн)</button>
-        </div>
+    <!-- Форма для створення аукціону -->
+    <div class="form-section">
+        <h2>Виставити річ на аукціон</h2>
+        <input type="text" id="itemName" placeholder="Назва речі (наприклад: iPhone 14)">
+        <input type="number" id="startPrice" placeholder="Стартова ціна (грн)" min="1">
+        <input type="number" id="duration" placeholder="Тривалість (години)" min="1" max="168">
+        <input type="url" id="itemImage" placeholder="Посилання на фото (Unsplash, Imgur тощо)">
+        <button onclick="createAuction()">Створити аукціон</button>
+    </div>
 
-        <!-- Картка 2 -->
-        <div class="card">
-            <h2>NFT-колекція "Котики 2026"</h2>
-            <img src="TCK_tocen.jpg" alt="TCK_tocen">
-            <p>Продано: <span id="sold2">18</span>% з 100%</p>
-            <p>Ціна за 1%: 1500 грн</p>
-            <button onclick="buyShare('2', 5, 75, 'Купівля 5%')">Купити 5% (75 грн)</button>
-            <button onclick="buyShare('2', 10, 150, 'Купівля 10%')">Купити 10% (150 грн)</button>
-        </div>
+    <!-- Список активних аукціонів -->
+    <div class="container" id="auctions-container">
+        <!-- Аукціони додаються з JS -->
     </div>
 
     <script src="script.js"></script>
