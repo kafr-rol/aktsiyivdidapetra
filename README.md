@@ -1,0 +1,2 @@
+# aktsiyivdidapetra
+Shop na bazari
