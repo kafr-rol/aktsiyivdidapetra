@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин часток бізнесу</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Купуй/Продавай</h1>
+    <h2>Оплата через Mono</h2>
+
+    <div class="container">
+        <!-- Картка 1 -->
+        <div class="card">
+            <h2>Кав'ярня "Затишок"</h2>
+            <img src="Sasha_tocen.jpg.jpg" alt="Sasha_tocen.jpg.jpg">
+            <p>Продано: <span id="sold1">42</span>% з 100%</p>
+            <p>Ціна за 1%: 2500 грн</p>
+            <button onclick="buyShare('1', 5, 125, 'Купівля 5%')">Купити 5% (125 грн)</button>
+            <button onclick="buyShare('1', 10, 250, 'Купівля 10%')">Купити 10% (250 грн)</button>
+        </div>
+
+        <!-- Картка 2 -->
+        <div class="card">
+            <h2>NFT-колекція "Котики 2026"</h2>
+            <img src="TCK_tocen.jpg" alt="TCK_tocen">
+            <p>Продано: <span id="sold2">18</span>% з 100%</p>
+            <p>Ціна за 1%: 1500 грн</p>
+            <button onclick="buyShare('2', 5, 75, 'Купівля 5%')">Купити 5% (75 грн)</button>
+            <button onclick="buyShare('2', 10, 150, 'Купівля 10%')">Купити 10% (150 грн)</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
