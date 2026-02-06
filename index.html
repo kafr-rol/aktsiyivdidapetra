@@ -3,26 +3,45 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аукціони – Купуй/Продавай</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Deepfake Друг – Говори чужим голосом</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <h1>Аукціони</h1>
-    <p>Виставляй речі на продаж або роби ставки. Комісія сайту — 1% від фінальної ціни</p>
+<body class="bg-gradient-to-br from-purple-900 to-indigo-900 min-h-screen text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-5xl font-bold text-center mb-8">Deepfake Друг</h1>
+        <p class="text-xl text-center mb-12">Зроби так, щоб твій голос і обличчя говорили будь-що! 😈</p>
 
-    <!-- Форма для створення аукціону -->
-    <div class="form-section">
-        <h2>Виставити річ на аукціон</h2>
-        <input type="text" id="itemName" placeholder="Назва речі (наприклад: iPhone 14)">
-        <input type="number" id="startPrice" placeholder="Стартова ціна (грн)" min="1">
-        <input type="number" id="duration" placeholder="Тривалість (години)" min="1" max="168">
-        <input type="url" id="itemImage" placeholder="Посилання на фото (Unsplash, Imgur тощо)">
-        <button onclick="createAuction()">Створити аукціон</button>
-    </div>
+        <!-- Форма створення клона -->
+        <div class="bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl mb-12">
+            <h2 class="text-3xl mb-6">Створи свій клон</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block mb-2">Завантаж фото себе (3–5 шт)</label>
+                    <input type="file" id="photos" multiple accept="image/*" class="w-full p-3 bg-gray-800 rounded-lg">
+                </div>
+                <div>
+                    <label class="block mb-2">Запиши голос (30–60 сек)</label>
+                    <button id="recordBtn" class="w-full p-3 bg-purple-600 rounded-lg hover:bg-purple-700">Почати запис</button>
+                    <audio id="audioPreview" controls class="w-full mt-4 hidden"></audio>
+                </div>
+            </div>
+            <button id="createClone" class="w-full mt-8 p-4 bg-green-600 rounded-lg text-xl hover:bg-green-700">Створити клон</button>
+        </div>
 
-    <!-- Список активних аукціонів -->
-    <div class="container" id="auctions-container">
-        <!-- Аукціони додаються з JS -->
+        <!-- Форма генерації повідомлення -->
+        <div class="bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl">
+            <h2 class="text-3xl mb-6">Згенеруй повідомлення</h2>
+            <textarea id="textInput" rows="4" class="w-full p-4 bg-gray-800 rounded-lg mb-6" placeholder="Введи текст, який скаже твій клон..."></textarea>
+            <select id="cloneSelect" class="w-full p-3 bg-gray-800 rounded-lg mb-6">
+                <option>Обери клона</option>
+                <!-- Додаються з JS -->
+            </select>
+            <button id="generateBtn" class="w-full p-4 bg-blue-600 rounded-lg text-xl hover:bg-blue-700">Згенерувати (безплатно 1 на день)</button>
+            <div id="result" class="mt-8 hidden">
+                <video id="generatedVideo" controls class="w-full rounded-lg"></video>
+                <audio id="generatedAudio" controls class="w-full mt-4"></audio>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
