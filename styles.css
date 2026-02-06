@@ -7,19 +7,43 @@ body {
 }
 
 h1 { color: #2c3e50; }
+h2 { color: #1565c0; }
 
-h2 {
-    font-size: 25px;
-    color: #34495e;
+.form-section {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: 0 auto 40px;
 }
 
-p { color: #34495e; }
+input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #388e3c;
+}
 
 .container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap;
 }
 
 .card {
@@ -27,28 +51,27 @@ p { color: #34495e; }
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     padding: 20px;
-    width: 320px;
+    width: 340px;
 }
 
 .card img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 15px;
 }
 
-button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 5px 0;
-    display: block;
-    width: 100%;
+.card h3 { margin: 10px 0; }
+.card p { margin: 8px 0; color: #555; }
+
+.bid-input {
+    width: 80%;
+    display: inline-block;
 }
 
-button:hover {
-    background: #45a049;
+.bid-button {
+    width: 18%;
+    display: inline-block;
+    margin-left: 2%;
 }
