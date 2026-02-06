@@ -1,98 +1,71 @@
-// Масив аукціонів (зберігається в localStorage для тесту)
-let auctions = JSON.parse(localStorage.getItem('auctions')) || [];
+// Імітація клонів (в реальності — збереження в Firebase)
+let clones = JSON.parse(localStorage.getItem('clones')) || [];
 
-// Додавання нового аукціону
-function createAuction() {
-    const name = document.getElementById('itemName').value.trim();
-    const startPrice = parseFloat(document.getElementById('startPrice').value);
-    const durationHours = parseInt(document.getElementById('duration').value);
-    const imageUrl = document.getElementById('itemImage').value.trim() || 'https://via.placeholder.com/300';
+// Запис голосу
+const recordBtn = document.getElementById('recordBtn');
+const audioPreview = document.getElementById('audioPreview');
+let mediaRecorder;
+let audioChunks = [];
 
-    if (!name || isNaN(startPrice) || isNaN(durationHours) || durationHours < 1) {
-        alert('Заповніть усі поля правильно!');
-        return;
+recordBtn.addEventListener('click', async () => {
+    if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            audioPreview.src = URL.createObjectURL(audioBlob);
+            audioPreview.classList.remove('hidden');
+            audioChunks = [];
+        };
+        mediaRecorder.start();
+        recordBtn.textContent = 'Стоп запис';
+    } else {
+        mediaRecorder.stop();
+        recordBtn.textContent = 'Почати запис';
     }
+});
 
-    const endTime = Date.now() + durationHours * 60 * 60 * 1000;
+// Створити клон (імітація)
+document.getElementById('createClone').addEventListener('click', () => {
+    const photos = document.getElementById('photos').files;
+    if (photos.length < 1) return alert('Завантаж хоча б одне фото!');
 
-    const auction = {
+    const clone = {
         id: Date.now(),
-        name,
-        image: imageUrl,
-        startPrice,
-        currentPrice: startPrice,
-        highestBidder: null,
-        endTime,
-        active: true
+        name: `Клон ${clones.length + 1}`,
+        created: new Date().toLocaleString()
     };
+    clones.push(clone);
+    localStorage.setItem('clones', JSON.stringify(clones));
+    updateCloneSelect();
+    alert('Клон створено! (імітація)');
+});
 
-    auctions.push(auction);
-    localStorage.setItem('auctions', JSON.stringify(auctions));
-
-    renderAuctions();
-    document.getElementById('itemName').value = '';
-    document.getElementById('startPrice').value = '';
-    document.getElementById('duration').value = '';
-    document.getElementById('itemImage').value = '';
-}
-
-// Відображення всіх аукціонів
-function renderAuctions() {
-    const container = document.getElementById('auctions-container');
-    container.innerHTML = '';
-
-    auctions.forEach(auction => {
-        const timeLeft = Math.max(0, auction.endTime - Date.now());
-        const hoursLeft = Math.floor(timeLeft / (1000 * 60 * 60));
-        const minutesLeft = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        const isEnded = timeLeft <= 0;
-
-        if (isEnded && auction.active) {
-            auction.active = false;
-            localStorage.setItem('auctions', JSON.stringify(auctions));
-        }
-
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.innerHTML = `
-            <h3>${auction.name}</h3>
-            <img src="${auction.image}" alt="${auction.name}">
-            <p>Стартова ціна: ${auction.startPrice} грн</p>
-            <p>Поточна ставка: <strong>${auction.currentPrice} грн</strong></p>
-            ${auction.highestBidder ? `<p>Лідер: ${auction.highestBidder}</p>` : ''}
-            <p>Залишилось: ${isEnded ? 'Аукціон завершено' : `${hoursLeft} год ${minutesLeft} хв`}</p>
-            ${!isEnded ? `
-                <input type="number" class="bid-input" id="bid${auction.id}" placeholder="Ваша ставка" min="${auction.currentPrice + 1}">
-                <button class="bid-button" onclick="placeBid(${auction.id})">Зробити ставку</button>
-            ` : '<button disabled>Аукціон завершено</button>'}
-        `;
-        container.appendChild(card);
+// Оновлення списку клонів
+function updateCloneSelect() {
+    const select = document.getElementById('cloneSelect');
+    select.innerHTML = '<option>Обери клона</option>';
+    clones.forEach(clone => {
+        const option = document.createElement('option');
+        option.value = clone.id;
+        option.textContent = clone.name;
+        select.appendChild(option);
     });
 }
 
-// Зробити ставку
-function placeBid(auctionId) {
-    const bidInput = document.getElementById(`bid${auctionId}`);
-    const bidAmount = parseFloat(bidInput.value);
+// Генерація повідомлення (імітація)
+document.getElementById('generateBtn').addEventListener('click', () => {
+    const text = document.getElementById('textInput').value.trim();
+    const cloneId = document.getElementById('cloneSelect').value;
 
-    const auction = auctions.find(a => a.id === auctionId);
-    if (!auction || !auction.active) return alert('Аукціон завершено');
+    if (!text || !cloneId) return alert('Введи текст і обери клона!');
 
-    if (isNaN(bidAmount) || bidAmount <= auction.currentPrice) {
-        alert('Ставка повинна бути вищою за поточну!');
-        return;
-    }
+    // Імітація генерації
+    alert(`Генерація відео/голосу для "${text}" від клона ${cloneId}... (імітація)`);
 
-    auction.currentPrice = bidAmount;
-    auction.highestBidder = 'Анонім'; // пізніше можна додати ім'я/емейл
-
-    localStorage.setItem('auctions', JSON.stringify(auctions));
-    renderAuctions();
-    alert(`Ставка ${bidAmount} грн прийнята!`);
-}
-
-// Початкове завантаження
-renderAuctions();
-
-// Автооновлення кожні 60 сек (щоб показувати залишений час)
-setInterval(renderAuctions, 60000);
+    // Показуємо результат (заглушка)
+    document.getElementById('result').classList.remove('hidden');
+    document.getElementById('generatedVideo').src = 'https://via.placeholder.com/640x360?text=Deepfake+Video';
+    document.getElementById('generatedAudio').src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+});
